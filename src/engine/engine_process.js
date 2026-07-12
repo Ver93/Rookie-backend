@@ -5,7 +5,6 @@ const engine = spawn("/var/www/portfolio/rookie-app/engine/rookie-engine/rookie-
     stdio: ["pipe", "pipe", "pipe"]
 });
 
-
 engine.stdout.on("data", data => {
     const text = data.toString().trim();
     console.log(text);
@@ -24,7 +23,21 @@ function send(cmd) {
     engine.stdin.write(cmd + "\n");
 }
 
+
 send("uci");
 send("isready");
 
+process.on("exit", () => {
+    try { engine.kill("SIGKILL"); } catch {}
+});
+
+process.on("SIGINT", () => {
+    try { engine.kill("SIGKILL"); } catch {}
+});
+
+process.on("SIGTERM", () => {
+    try { engine.kill("SIGKILL"); } catch {}
+});
+
+// Exportera
 module.exports = engine;
