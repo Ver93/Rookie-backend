@@ -1,10 +1,10 @@
 const { spawn } = require("child_process");
 const listeners = require("./listener_store");
 
-const engine = spawn("./rookie-engine", [], {
-    cwd: "/var/www/portfolio/rookie-app/engine/rookie-engine",
+spawn("/var/www/portfolio/rookie-app/engine/rookie-engine/rookie-engine", [], {
     stdio: ["pipe", "pipe", "pipe"]
 });
+
 
 engine.stdout.on("data", data => {
     const text = data.toString().trim();
