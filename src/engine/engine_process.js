@@ -24,8 +24,8 @@ function send(cmd) {
 }
 
 
-send("uci");
-send("isready");
+// send("uci");
+// send("isready");
 
 process.on("exit", () => {
     try { engine.kill("SIGKILL"); } catch {}
@@ -39,5 +39,4 @@ process.on("SIGTERM", () => {
     try { engine.kill("SIGKILL"); } catch {}
 });
 
-// Exportera
 module.exports = engine;
