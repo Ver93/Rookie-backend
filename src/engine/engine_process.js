@@ -24,8 +24,8 @@ function send(cmd) {
 }
 
 
-// send("uci");
-// send("isready");
+send("uci");
+send("isready");
 
 process.on("exit", () => {
     try { engine.kill("SIGKILL"); } catch {}
