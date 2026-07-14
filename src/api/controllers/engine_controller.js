@@ -13,11 +13,7 @@ exports.terminal = async (req, res) => {
     const cmd = req.body.command;
 
     console.log("Terminal command:", cmd);
-
-    // Skicka kommandot till motorn
     uci.send(cmd);
-
-    // Vänta 50ms och samla ALLT
     const output = await uci.collectFor(100);
 
     res.json({ output });
