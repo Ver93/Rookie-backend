@@ -1,7 +1,7 @@
 const { spawn } = require("child_process");
 const listeners = require("./listener_store");
 
-const engine = spawn("/var/www/portfolio/rookie-app/engine/rookie-engine/build/rookie-engine", [], {
+const engine = spawn("/var/www/portfolio/rookie-app/engine/rookie-engine/build/rookie_engine", [], {
     stdio: ["pipe", "pipe", "pipe"]
 });
 
