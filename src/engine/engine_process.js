@@ -5,7 +5,6 @@ const engine = spawn("/var/www/portfolio/rookie-app/engine/rookie-engine/build/r
     stdio: ["pipe", "pipe", "pipe"]
 });
 
-// Samla ALLA rader, även om flera kommer i samma chunk
 engine.stdout.on("data", data => {
     const text = data.toString();
 
@@ -31,9 +30,6 @@ function send(cmd) {
     console.log(">>", cmd);
     engine.stdin.write(cmd + "\n");
 }
-
-send("uci");
-send("isready");
 
 process.on("exit", () => engine.kill("SIGKILL"));
 process.on("SIGINT", () => engine.kill("SIGKILL"));
