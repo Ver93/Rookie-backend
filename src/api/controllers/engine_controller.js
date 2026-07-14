@@ -14,7 +14,8 @@ exports.terminal = async (req, res) => {
 
     console.log("Terminal command:", cmd);
     uci.send(cmd);
-    const output = await uci.collectFor(100);
+
+    const output = await uci.collectFor(200);
 
     res.json({ output });
 };

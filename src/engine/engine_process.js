@@ -5,15 +5,24 @@ const engine = spawn("/var/www/portfolio/rookie-app/engine/rookie-engine/build/r
     stdio: ["pipe", "pipe", "pipe"]
 });
 
+// Samla ALLA rader, även om flera kommer i samma chunk
 engine.stdout.on("data", data => {
-    const text = data.toString().trim();
-    console.log(text);
+    const text = data.toString();
 
-    for (let i = listeners.length - 1; i >= 0; i--) {
-        const listener = listeners[i];
-        if (text.startsWith(listener.waitFor)) {
-            listener.resolve(text);
-            listeners.splice(i, 1);
+    // Dela upp i rader
+    const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+
+    for (const line of lines) {
+        console.log(line);
+
+        // Matcha listeners
+        for (let i = listeners.length - 1; i >= 0; i--) {
+            const listener = listeners[i];
+
+            if (line.startsWith(listener.waitFor)) {
+                listener.resolve(line);
+                listeners.splice(i, 1);
+            }
         }
     }
 });
@@ -23,20 +32,11 @@ function send(cmd) {
     engine.stdin.write(cmd + "\n");
 }
 
-
 send("uci");
 send("isready");
 
-process.on("exit", () => {
-    try { engine.kill("SIGKILL"); } catch {}
-});
-
-process.on("SIGINT", () => {
-    try { engine.kill("SIGKILL"); } catch {}
-});
-
-process.on("SIGTERM", () => {
-    try { engine.kill("SIGKILL"); } catch {}
-});
+process.on("exit", () => engine.kill("SIGKILL"));
+process.on("SIGINT", () => engine.kill("SIGKILL"));
+process.on("SIGTERM", () => engine.kill("SIGKILL"));
 
 module.exports = engine;
