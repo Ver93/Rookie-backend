@@ -1,25 +1,25 @@
 const uci = require("../engine/uci_adapters");
 
-exports.uci = async() => {
+exports.uci = async () => {
     uci.send("uci");
     const response = await uci.waitFor("uciok");
     return response;
 };
 
-exports.isready = async() => {
+exports.isready = async () => {
     uci.send("isready");
     const response = await uci.waitFor("readyok");
     return response;
 };
 
-exports.setoption = async(options) => {
+exports.setoption = async (options) => {
     uci.send(`setoption ${options.join(" ")}`);
 };
 
-exports.ucinewgame = async() => {
+exports.ucinewgame = async () => {
     uci.send("ucinewgame");
 };
-exports.position = async(fen, moves) => {
+exports.position = async (fen, moves) => {
     if (!fen || fen === "" || fen === "startpos") {
         uci.send(`position startpos moves ${moves.join(" ")}`);
     } else {
@@ -36,9 +36,9 @@ exports.go = async (depth) => {
     return move;
 };
 
-exports.stop = async() => {
+exports.stop = async () => {
     uci.send("stop");
 };
-exports.quit = async() => {
+exports.quit = async () => {
     uci.send("quit");
 };
