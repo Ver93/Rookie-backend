@@ -1,22 +1,15 @@
 const uci = require("../engine/uci_adapters");
 
 exports.uci = async () => {
-    console.log("Services:");
-
+    console.log("command: uci");
     const responsePromise = uci.waitFor("uciok");
-
     uci.send("uci");
-
-    console.log("Uci Command sent!");
-
     const response = await responsePromise;
-
-    console.log("Response:", response);
-
     return response;
 };
 
 exports.isready = async () => {
+    console.log("command: isready");
     uci.send("isready");
     const response = await uci.waitFor("readyok");
     return response;
@@ -30,6 +23,7 @@ exports.ucinewgame = async () => {
     uci.send("ucinewgame");
 };
 exports.position = async (fen, moves) => {
+    console.log("command: position");
     if (!fen || fen === "" || fen === "startpos") {
         uci.send(`position startpos moves ${moves.join(" ")}`);
     } else {
@@ -38,6 +32,7 @@ exports.position = async (fen, moves) => {
 };
 
 exports.go = async (depth) => {
+    console.log("command: go");
     uci.send(`go depth ${depth}`);
 
     const bestMoveLine = await uci.waitFor("bestmove");
