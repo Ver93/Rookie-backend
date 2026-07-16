@@ -12,7 +12,10 @@ exports.waitFor = (keyword) => {
     return new Promise(resolve => {
         listeners.push({
             waitFor: keyword,
-            resolve
+            resolve: (data) => {
+                console.log("Resolved:", data);
+                resolve(data);
+            }
         });
     });
 };
