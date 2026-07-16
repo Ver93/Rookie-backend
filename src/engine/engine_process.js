@@ -14,12 +14,20 @@ engine.stdout.on("data", data => {
         .filter(Boolean);
 
     for (const line of lines) {
-        console.log(line);
+        console.log("LINE:", JSON.stringify(line));
 
         for (let i = listeners.length - 1; i >= 0; i--) {
             const listener = listeners[i];
 
-            if (line.startsWith(listener.waitFor)) {
+            console.log(
+                "CHECK:",
+                JSON.stringify(line),
+                JSON.stringify(listener.waitFor)
+            );
+
+            if (line.includes(listener.waitFor)) {
+                console.log("MATCH!");
+
                 listener.resolve(line);
                 listeners.splice(i, 1);
             }
