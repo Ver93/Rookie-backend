@@ -1,6 +1,5 @@
 const engine = require("../engine/engine_process");
-
-let listeners = [];
+const listeners = require("../engine/listener_store");
 
 exports.send = (cmd) => {
     engine.stdin.write(cmd + "\n");
