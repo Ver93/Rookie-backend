@@ -2,10 +2,17 @@ const uci = require("../engine/uci_adapters");
 
 exports.uci = async () => {
     console.log("Services:");
+
+    const responsePromise = uci.waitFor("uciok");
+
     uci.send("uci");
+
     console.log("Uci Command sent!");
-    const response = await uci.waitFor("uciok");
-    console.log("Response:" + response);
+
+    const response = await responsePromise;
+
+    console.log("Response:", response);
+
     return response;
 };
 
