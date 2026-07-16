@@ -3,6 +3,7 @@ const uci = require("../engine/uci_adapters");
 exports.uci = async () => {
     uci.send("uci");
     const response = await uci.waitFor("uciok");
+    console.log(response);
     return response;
 };
 
