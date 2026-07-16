@@ -8,7 +8,10 @@ const engine = spawn("/var/www/portfolio/rookie-app/engine/rookie-engine/build/r
 engine.stdout.on("data", data => {
     const text = data.toString();
 
-    const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+    const lines = text
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(Boolean);
 
     for (const line of lines) {
         console.log(line);

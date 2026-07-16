@@ -7,7 +7,12 @@ exports.send = (cmd) => {
 };
 
 exports.waitFor = (keyword) => {
+    console.log("Waiting for:", keyword);
+
     return new Promise(resolve => {
-        listeners.push({ waitFor: keyword, resolve });
+        listeners.push({
+            waitFor: keyword,
+            resolve
+        });
     });
 };
