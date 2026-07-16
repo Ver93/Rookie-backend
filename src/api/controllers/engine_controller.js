@@ -5,6 +5,8 @@ const engine = require("../../engine/engine_process");
 exports.uci = async (req, res) => {
     const ans = await engineService.uci();
     res.json({ ans });
+
+    console.log("Controller");
 }
 
 exports.isready = async (req, res) => {
