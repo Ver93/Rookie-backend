@@ -5,8 +5,6 @@ const engine = require("../../engine/engine_process");
 exports.uci = async (req, res) => {
     const ans = await engineService.uci();
     res.json({ ans });
-
-    console.log("Controller");
 }
 
 exports.isready = async (req, res) => {
@@ -15,17 +13,17 @@ exports.isready = async (req, res) => {
 }
 exports.setoption = async (req, res) => {
     await engineService.setoption();
-    res.sendStatus(200);
+    res.status(200).json({ ans: "OK" });
 }
 exports.ucinewgame = async (req, res) => {
     await engineService.ucinewgame();
-    res.sendStatus(200);
+    res.status(200).json({ ans: "OK" });
 }
 
 exports.position = async (req, res) => {
     const { fen, moves } = req.body;
     await engineService.position(fen, moves);
-    res.sendStatus(200);
+    res.status(200).json({ ans: "OK" });
 };
 
 
@@ -38,9 +36,9 @@ exports.go = async (req, res) => {
 
 exports.stop = async (req, res) => {
     await engineService.stop();
-    res.sendStatus(200);
+    res.status(200).json({ ans: "OK" });
 }
 exports.quit = async (req, res) => {
     await engineService.quit();
-    res.sendStatus(200);
+    res.status(200).json({ ans: "OK" });
 }  
