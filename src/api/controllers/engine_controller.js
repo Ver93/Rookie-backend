@@ -3,6 +3,7 @@ const uci = require("../../engine/uci_adapters");
 const engine = require("../../engine/engine_process");
 
 exports.uci = async (req, res) => {
+    console.log("Den här körs");
     const ans = await engineService.uci();
     res.json({ ans });
 }
